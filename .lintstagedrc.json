@@ -1,0 +1,8 @@
+{
+  "**/*.{js,ts}": ["npx organize-imports-cli"],
+  "**/*.{js,jsx,ts,tsx,html,css,scss,json}": [
+    "npx prettier --write",
+    "npx eslint --fix"
+  ],
+  "**/*.{md}": ["npx prettier --write"]
+}
