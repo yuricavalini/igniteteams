@@ -8,7 +8,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/roboto';
 
-import { Players } from '@screens';
+import { Routes } from './src/routes';
 
 import theme from './src/theme';
 
@@ -22,7 +22,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Players /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
