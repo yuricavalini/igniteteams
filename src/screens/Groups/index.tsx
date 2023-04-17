@@ -1,12 +1,19 @@
+import { Button, GroupCard, Header, Highlight, ListEmpty } from '@components';
+import { useNavigation } from '@react-navigation/native';
+
 import { useState } from 'react';
 import { FlatList } from 'react-native';
-
-import { Button, GroupCard, Header, Highlight, ListEmpty } from '@components';
 
 import { Container } from './styles';
 
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([]);
+
+  const navigation = useNavigation();
+
+  function handleNewGroup() {
+    navigation.navigate('new');
+  }
 
   return (
     <Container>
@@ -25,7 +32,7 @@ export function Groups() {
         showsVerticalScrollIndicator={false}
       />
 
-      <Button title="Criar nova turma" type="PRIMARY" />
+      <Button title="Criar nova turma" onPress={handleNewGroup} />
     </Container>
   );
 }
