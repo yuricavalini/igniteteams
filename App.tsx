@@ -1,14 +1,14 @@
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 
-import { Loading } from '@components/Loading';
+import { Loading } from '@components';
 import {
   Roboto_400Regular,
   Roboto_700Bold,
   useFonts,
 } from '@expo-google-fonts/roboto';
 
-import { Groups } from '@screens/Groups';
+import { Players } from '@screens';
 
 import theme from './src/theme';
 
@@ -22,7 +22,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Groups /> : <Loading />}
+      {fontsLoaded ? <Players /> : <Loading />}
     </ThemeProvider>
   );
 }

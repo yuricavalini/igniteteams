@@ -4,10 +4,10 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
+      "@components": ["./src/components"],
+      "@screens": ["./src/screens"],
       "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
       "@routes/*": ["./src/routes/*"],
-      "@screens/*": ["./src/screens/*"],
       "@storage/*": ["./src/storage/*"],
       "@utils/*": ["./src/utils/*"]
     }
