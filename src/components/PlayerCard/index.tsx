@@ -1,4 +1,4 @@
-import { ButtonIcon } from '@components';
+import { ButtonIcon } from '../ButtonIcon';
 
 import { Container, Icon, Name } from './styles';
 
