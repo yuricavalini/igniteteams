@@ -28,7 +28,16 @@
     "space-before-function-paren": "off",
     "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "arguments": false,
+          "attributes": false
+        }
+      }
+    ]
   },
   "settings": {
     "react": {
