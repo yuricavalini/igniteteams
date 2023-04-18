@@ -27,7 +27,6 @@ export function Groups() {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('User focus executou');
       fetchGroups().catch((error) => console.log(error));
     }, [])
   );
