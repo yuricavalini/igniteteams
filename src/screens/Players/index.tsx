@@ -10,12 +10,12 @@ import {
 } from '@components';
 import { useRoute } from '@react-navigation/native';
 import { playerAddByGroup } from '@storage/player/playerAddByGroup';
-import { playersGetByGroup } from '@storage/player/playersGetByGroup';
+import { playersGetByGroupAndTeam } from '@storage/player/playersGetByGroupAndTeam';
 import { PlayerStorageDTO } from '@storage/player/PlayerStorageDTO';
 
 import { AppError } from '@utils/AppError';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Alert, FlatList } from 'react-native';
 
 import { Container, Form, HeaderList, NumberOfPlayers } from './styles';
@@ -27,10 +27,28 @@ type RouteParams = {
 export function Players() {
   const [newPlayerName, setNewPlayerName] = useState('');
   const [team, setTeam] = useState<string>('Time A');
-  const [players, setPlayers] = useState<string[]>([]);
+  const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
 
   const route = useRoute();
   const { group } = route.params as RouteParams;
+
+  async function fetchPlayersByTeam() {
+    try {
+      const playersByTeam = await playersGetByGroupAndTeam(group, team);
+      setPlayers(playersByTeam);
+    } catch (error) {
+      console.log(error);
+      Alert.alert(
+        'Pessoas',
+        'Não foi possível carregar as pessoas filtradas do time selecionado'
+      );
+    }
+  }
+
+  const memoizedFetchPlayersByTeam = useCallback(fetchPlayersByTeam, [
+    group,
+    team,
+  ]);
 
   async function handleAddPlayer() {
     if (!newPlayerName.trim().length) {
@@ -47,8 +65,7 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
-      const playersByGroup = await playersGetByGroup(group);
-      console.log(playersByGroup);
+      memoizedFetchPlayersByTeam().catch((error) => console.log(error));
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert('Nova pessoa', error.message);
@@ -58,6 +75,10 @@ export function Players() {
       }
     }
   }
+
+  useEffect(() => {
+    memoizedFetchPlayersByTeam().catch((error) => console.log(error));
+  }, [memoizedFetchPlayersByTeam]);
 
   return (
     <Container>
@@ -94,9 +115,9 @@ export function Players() {
 
       <FlatList
         data={players}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <PlayerCard name={item} onRemove={() => {}} />
+          <PlayerCard name={item.name} onRemove={() => {}} />
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Não há pessoas nesse time." />
