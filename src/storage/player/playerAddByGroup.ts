@@ -16,7 +16,7 @@ export async function playerAddByGroup(
       (player) => player.name === newPlayer.name
     );
 
-    if (!playerAlreadyExists) {
+    if (playerAlreadyExists) {
       throw new AppError('Essa pessoa já está adicionada em um time aqui.');
     }
 
