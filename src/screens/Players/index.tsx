@@ -12,11 +12,10 @@ import { useRoute } from '@react-navigation/native';
 import { playerAddByGroup } from '@storage/player/playerAddByGroup';
 import { playersGetByGroupAndTeam } from '@storage/player/playersGetByGroupAndTeam';
 import { PlayerStorageDTO } from '@storage/player/PlayerStorageDTO';
-
 import { AppError } from '@utils/AppError';
 
-import { useCallback, useEffect, useState } from 'react';
-import { Alert, FlatList } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, FlatList, TextInput } from 'react-native';
 
 import { Container, Form, HeaderList, NumberOfPlayers } from './styles';
 
@@ -31,6 +30,8 @@ export function Players() {
 
   const route = useRoute();
   const { group } = route.params as RouteParams;
+
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   async function fetchPlayersByTeam() {
     try {
@@ -65,6 +66,10 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
+
+      newPlayerNameInputRef.current?.blur();
+
+      setNewPlayerName('');
       memoizedFetchPlayersByTeam().catch((error) => console.log(error));
     } catch (error) {
       if (error instanceof AppError) {
@@ -88,9 +93,13 @@ export function Players() {
 
       <Form>
         <Input
+          inputRef={newPlayerNameInputRef}
           onChangeText={setNewPlayerName}
+          value={newPlayerName}
           placeholder="Nome da pessoa"
           autoCorrect={false}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
 
         <ButtonIcon icon="add" onPress={handleAddPlayer} />
