@@ -11,10 +11,10 @@ import {
 } from '@components';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { groupRemoveByName } from '@storage/group/groupRemoveByName';
+import { PlayerStorageDTO } from '@storage/player/model/PlayerStorageDTO';
 import { playerAddByGroup } from '@storage/player/playerAddByGroup';
 import { playerRemoveByGroup } from '@storage/player/playerRemoveByGroup';
 import { playersGetByGroupAndTeam } from '@storage/player/playersGetByGroupAndTeam';
-import { PlayerStorageDTO } from '@storage/player/PlayerStorageDTO';
 import { AppError } from '@utils/AppError';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, FlatList, TextInput } from 'react-native';

@@ -1,12 +1,13 @@
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 
-import { Loading } from '@components';
 import {
   Roboto_400Regular,
   Roboto_700Bold,
   useFonts,
 } from '@expo-google-fonts/roboto';
+
+import { Loading } from '@components';
 
 import { Routes } from './src/routes';
 
